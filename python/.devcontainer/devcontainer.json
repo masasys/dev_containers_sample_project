@@ -11,7 +11,7 @@
     8000
   ],
   "name": "Ann API Dev",
-  "service": "api",
+  "service": "python",
   "settings": {
     "terminal.integrated.shell.linux": "/bin/bash"
   },
