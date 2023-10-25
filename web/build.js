@@ -24,7 +24,7 @@ function generateHash(content) {
 // １回だけ実行するコピー処理用
 let isFirstPair = true;
 // ビルド
-filePairs.forEach((pair) => {
+for (const pair of filePairs) {
     // ファイルを読み込む
     const fileContent = fs.readFileSync(pair.ts, 'utf-8');
     // ファイル名用ハッシュ値を生成
@@ -34,7 +34,7 @@ filePairs.forEach((pair) => {
     // ビルド後のファイル名を定義
     const outFile = path.join(outputDir, `${baseName}.${hash}.js`);
     // １回だけ実行するコピー処理
-    let plugins = [];
+    const plugins = [];
     if (isFirstPair) {
         // 2回目以降はコピー処理を行わない
         plugins.push(
@@ -56,7 +56,7 @@ filePairs.forEach((pair) => {
             })
         );
         isFirstPair = false;
-        console.log("--- copy files setting. ---")
+        console.log("--- copy files setting. ---");
     }
     // ビルド
     esbuild.build({
@@ -68,16 +68,16 @@ filePairs.forEach((pair) => {
         outfile: outFile,
         platform: "browser",
         format: "esm",
-        plugins: plugins,
+        plugins,
     }).then(() => {
         // ビルド後にHTMLを更新
-        let htmlContent = fs.readFileSync("html/" + pair.html, 'utf-8');
+        const htmlContent = fs.readFileSync(`html/${pair.html}`, 'utf-8');
         // ファイル名をHTMLに埋め込む
-        const scriptPlaceholder = `%BUNDLE_JS_PATH%`;
+        const scriptPlaceholder = "%BUNDLE_JS_PATH%";
         // 整形後のHTMLファイル
-        htmlContent = htmlContent.replace(scriptPlaceholder, outFile);
+        const updatedHtmlContent = htmlContent.replace(scriptPlaceholder, outFile);
         // 書き出し
-        fs.writeFileSync("view/" + pair.html, htmlContent);
-        console.log(pair.ts + " -> " + outFile);
+        fs.writeFileSync(`view/${pair.html}`, updatedHtmlContent);
+        console.log(`${pair.ts} -> ${outFile}`);
     }).catch((err) => console.error(err));
-});
+}
