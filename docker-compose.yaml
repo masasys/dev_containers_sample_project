@@ -1,0 +1,35 @@
+version: '3'
+services:
+  nginx:
+    build: ./nginx
+    volumes:
+      - ./web/view:/usr/src/view
+    command: ["nginx", "-g", "daemon off;"]
+    restart: always
+    ports:
+      - "30080:80"
+      - "30443:443"
+  web:
+    build: ./web
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./web/ts:/usr/src/ts
+      - ./web/html:/usr/src/html
+      - ./web/view:/usr/src/view
+      - ./web/package.json:/usr/src/package.json
+      - ./web/tsconfig.json:/usr/src/tsconfig.json
+      - ./web/nodemon.json:/usr/src/nodemon.json
+      - ./web/build.js:/usr/src/build.js
+      - ./web/biome.json:/usr/src/biome.json
+    command: bash -c "npm run dev"
+    restart: always
+  python:
+    build: ./python
+    command: uvicorn main:app --reload --host 0.0.0.0 --port 8000
+    working_dir: /api/app
+    volumes:
+      - ./python:/api/app
+      # - ./web/view:/api/view
+      - ./.vscode:/api/.vscode
+    restart: always

@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "rootDir": "./ts",
+    "outDir": "./view/assets/js",
+    "module": "es2015",
+    "target": "es2020",
+    "sourceMap": true,
+    "declaration": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["ts/*.ts"],
+  "exclude": [
+    "node_modules"
+  ],
+}

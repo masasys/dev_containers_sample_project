@@ -1,0 +1,56 @@
+#
+# Ruff Settings
+# https://qiita.com/yuji38kwmt/items/63e82126076204923520
+#
+
+[tool.ruff]
+target-version = "py310"
+
+ignore = [
+    "RUF001", # 全角記号など`ambiguous unicode character`も使いたいため
+    "RUF002",# 全角記号など`ambiguous unicode character`も使いたいため
+    "RUF003",# 全角記号など`ambiguous unicode character`も使いたいため
+    "ERA", # : 役立つこともあるが、コメントアウトしていないコードも警告されるので無視する
+
+    # 以下のルールはannofabcliのコードに合っていないので無効化した
+    "RSE", # flake8-raise
+    "D", # pydocstyle, Docstringを中途半端にしか書いていないので、除外する
+    "C90", # mccabe 
+    "T20", # flake8-print
+    "SLF", #  flake8-self
+    "BLE", # flake8-blind-except
+    "FBT", # flake8-boolean-trap
+    "TRY", # tryceratops 
+    "COM", # flake8-commas 
+    "S", # flake8-bandit
+    "EM",#flake8-errmsg
+    "EXE", # flake8-executable
+    "ICN", # flake8-import-conventions
+    "RET",#flake8-return
+    "SIM",#flake8-simplify
+    "TCH", # flake8-type-checking
+    "PTH", #pathlibを使わないコードが多いので、除外する
+    "ISC", #flake8-implicit-str-concat
+    "N", # pep8-naming
+    "PT", # flake8-pytest-style
+    "UP006", # flake8-2020
+    "ANN202", # flake8-annotations-complexity
+]
+
+line-length = 120
+select = [
+    "ALL"
+]
+
+[tool.ruff.pydocstyle]
+# pydocstyleを無視しているのでこの設定は無意味だが、
+# 社内ツールのdocstringのスタイルは決まっているので、設定だけしておく
+convention = "google"
+
+[tool.ruff.pyupgrade]
+# Python3.8をサポートしているため、`typing.List`などの型ヒントは警告しないようにする
+# https://beta.ruff.rs/docs/settings/#keep-runtime-typing
+keep-runtime-typing = true
+
+[tool.ruff.pylint]
+max-args = 10

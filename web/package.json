@@ -1,0 +1,27 @@
+{
+  "name": "scope",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "build": "node ./build.js",
+    "watch": "nodemon",
+    "dev": "concurrently \"npm run watch\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+  },
+  "dependencies": {
+    "concurrently": "^8.0.1",
+    "esbuild": "^0.19.5",
+    "esbuild-plugin-copy": "^2.1.1",
+    "crypto": "1.0.1",
+    "glob": "^10.2.3",
+    "nodemon": "^2.0.22",
+    "ts-loader": "^9.4.2",
+    "typescript": "^5.0.4",
+    "@biomejs/biome": "^1.2.2"
+  }
+}

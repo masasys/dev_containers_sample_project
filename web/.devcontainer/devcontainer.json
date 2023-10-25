@@ -1,0 +1,18 @@
+{
+  "dockerComposeFile": "../../docker-compose.yaml",
+  "extensions": [
+    "biomejs.biome"
+  ],
+  "forwardPorts": [
+    80,
+    443,
+    8000
+  ],
+  "name": "My Dev Container",
+  "service": "web",
+  "settings": {
+    "terminal.integrated.shell.linux": "/bin/bash"
+  },
+  "workspaceFolder": "/usr/src",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/usr/src,type=bind,consistency=cached"
+}

@@ -1,0 +1,20 @@
+{
+  "dockerComposeFile": "../../docker-compose.yaml",
+  "extensions": [
+    "charliermarsh.ruff",
+    "ms-python.python",
+    "ms-python.black-formatter"
+  ],
+  "forwardPorts": [
+    80,
+    443,
+    8000
+  ],
+  "name": "Ann API Dev",
+  "service": "api",
+  "settings": {
+    "terminal.integrated.shell.linux": "/bin/bash"
+  },
+  "workspaceFolder": "/api/app",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/usr/src,type=bind,consistency=cached"
+}
