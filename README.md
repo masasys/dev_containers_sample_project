@@ -37,6 +37,16 @@ pythonやtypescriptを複数人で利用するとき、以下のような問題�
 
 5. `./python`か、`./web`を選択する。１ウィンドウに１つのコンテナが開くので、両方を開発する場合は、`3.`から繰り返す。
 
+### webアクセス
+
+静的ファイルと、APIへのアクセスを分けてアクセスする仕組みとして、nginxを利用している。
+
+`./docker-compose.yaml`の`services.nginx.ports`項目にある通り、`http://localhost:30080`にアクセスすると、nginxにアクセスし、`nginx/nginx.conf`にある通り、ルートの`http://localhost:30080`にアクセスすると`http://localhost:30080/view/index.html`へ転送される。
+
+`http://localhost:30080/api/`以下へのアクセスは、`./python/main.py`に記載されているエンドポイントに転送される。
+
+`http://localhost:30080/view/`以下へのアクセスは、`./flontend/view`以下のファイルへのアクセスに転送される。
+
 ## 構成
 
 ```tree
@@ -92,13 +102,13 @@ TypeScriptは、ブラウザで実行するために、ビルドする必要が�
 
 1. `web`コンテナを起動する。
 2. `bash -c "npm run dev"`が実行される。
-3. npmの`concurrently`パッケージにより、並列で`nodemon`がコンテナ内で実行される。`nodemon`が実行されると、特定のディレクトリ（`./ts`ディレクトリ）に変更があるか監視し、変更があった場合は、`node build.js`が実行される（`./web/nodemon.json`に記載）。
-4. `./web/view` にデータが書き出される。書き出されたデータは、`nginx`コンテナにマウントされている。
+3. npmの`concurrently`パッケージにより、並列で`nodemon`がコンテナ内で実行される。`nodemon`が実行されると、特定のディレクトリ（`./ts`ディレクトリ）に変更があるか監視し、変更があった場合は、`node build.js`が実行される（`./flontend/nodemon.json`に記載）。
+4. `./flontend/view` にデータが書き出される。書き出されたデータは、`nginx`コンテナにマウントされている。
 
 #### 補足事項
 
 - コンテナ起動時にも`node build.js`が実行される。
-- `./web/view`ディレクトリはビルド時に更新がされる（使用者毎にビルドされる）対象であるので、`.gitignore`で同期の除外対象としている。
+- `./flontend/view`ディレクトリはビルド時に更新がされる（使用者毎にビルドされる）対象であるので、`.gitignore`で同期の除外対象としている。
 
 ### ESBuildについて
 

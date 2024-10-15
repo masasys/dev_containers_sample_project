@@ -3,25 +3,25 @@ services:
   nginx:
     build: ./nginx
     volumes:
-      - ./web/view:/usr/src/view
+      - ./flontend/view:/usr/src/view
     command: ["nginx", "-g", "daemon off;"]
     restart: always
     ports:
       - "30080:80"
       - "30443:443"
-  web:
-    build: ./web
+  flontend:
+    build: ./flontend
     environment:
       - NODE_ENV=development
     volumes:
-      - ./web/ts:/usr/src/ts
-      - ./web/html:/usr/src/html
-      - ./web/view:/usr/src/view
-      - ./web/package.json:/usr/src/package.json
-      - ./web/tsconfig.json:/usr/src/tsconfig.json
-      - ./web/nodemon.json:/usr/src/nodemon.json
-      - ./web/build.js:/usr/src/build.js
-      - ./web/biome.json:/usr/src/biome.json
+      - ./flontend/ts:/usr/src/ts
+      - ./flontend/html:/usr/src/html
+      - ./flontend/view:/usr/src/view
+      - ./flontend/package.json:/usr/src/package.json
+      - ./flontend/tsconfig.json:/usr/src/tsconfig.json
+      - ./flontend/nodemon.json:/usr/src/nodemon.json
+      - ./flontend/build.js:/usr/src/build.js
+      - ./flontend/biome.json:/usr/src/biome.json
     command: bash -c "npm run dev"
     restart: always
   python:
@@ -30,6 +30,6 @@ services:
     working_dir: /api/app
     volumes:
       - ./python:/api/app
-      # - ./web/view:/api/view
+      # - ./flontend/view:/api/view
       - ./.vscode:/api/.vscode
     restart: always
